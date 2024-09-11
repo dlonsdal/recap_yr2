@@ -1,0 +1,196 @@
+---
+title: "Recap of quantitative pharmacology skills developed in '<TT>R</TT> in year 1'"
+output:
+  bookdown::html_document2:
+    fig_caption : TRUE
+    number_sections: no
+    toc: yes
+    toc_float: yes
+
+header-includes:
+  - \usepackage{colortbl}
+  - \usepackage{multirow}
+  - \usepackage{float}
+  - \floatplacement{figure}{H}
+  - \floatplacement{table}{H}
+  - \usepackage{booktabs}
+  - \usepackage{caption}
+  - \captionsetup{labelfont=bf,margin=12pt} 
+  - \newcommand{\blandscape}{\begin{landscape}}
+  - \newcommand{\elandscape}{\end{landscape}}
+---
+
+<style>
+h1.title {
+  font-size: 48px;
+
+  text-align: center;
+}
+h4.author { 
+  text-align: center;
+}
+body {
+text-align: justify}
+</style>
+
+<center><img src="PK.png"/></center>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.pos= "H")
+library(tidyverse)
+library(kableExtra)
+```
+
+
+# Introduction 
+
+In this session you will run through some of the quantitative skills that we learned in year 1. This is in preparation for an in-person session next week, where we will push things a little further. 
+
+One of the important ways of learning how to code is by actually doing it yourself, so it is really important to try to go through the tasks in this session yourself. See if you can do this without reference to the answers (although of course these are available if you need them!).
+
+Remember, drug development professionals across the world use these skills and software. It is worth investing some of your time in developing some knowledge of them yourself. 
+
+Last year, we did not assess this component of the course. This year, you will be invited to complete some analysis as part of an in-course assignment. Code questions may be included in the Hub single best answer quizzes.
+
+# Learning outcomes  
+
+By the end of this session you should be able to:  
+  
+* Access <TT>R</TT> and <TT>RStudio</TT> onto your own computer or a University PC
+* Understand the different windows in the <TT>RStudio</TT> desktop
+* Make and save an  <TT>R</TT> script
+* Undertake some basic calculations using  <TT>R</TT>
+* Set the  <TT>R</TT> working directory using  <TT>setwd()</TT>
+* Import a .csv data file into  <TT>R</TT> 
+* View a data frame
+* Describe the difference between 'long' and 'wide' data formats and which is used for pharmacokinetic modelling
+* Download a package to your  <TT>R library</TT> 
+* Call a  <TT>package</TT> from the  <TT>R library</TT>
+* Plot some pharmacokinetic data using the  <TT>R</TT> package  <TT>ggplot2</TT>
+  + Change the aesthetics of plots 
+  + Use  <TT>ggplot2</TT> to transform axes and plot individual data using  <TT>facet_wrap()</TT>
+* Use  <TT>R</TT> to undertake basic, descriptive (non-compartmental) analysis of some pharmacokinetic data to estimate
+    + $C_{max}$
+    + $T_{max}$
+    + $AUC_{0-t}$
+    + Bioavailability ($F$)
+  
+# Accessing <TT>R</TT> and <TT>RStudio</TT> on a University computer 
+
+Remember, when you are using a University computer, you need to access <TT>RStudio</TT> via the University servers.
+
+The link for this is [here](https://stats3.sgul.ac.uk/rstudio).  I suggest you save this as a 'favourite'
+
+# Some basics in <TT>R</TT>
+Open <TT>RStudio</TT> and then open a new <TT>R</TT> script by clicking on the plus page in the top left hand corner of the <TT>RStudio</TT> window. You are now ready to start writing an <TT>R</TT> script. Try doing some simple maths and running the code by clicking '<TT>Run</TT>' or pressing <TT>ctrl+enter</TT> (<TT>cmd+enter if using a Mac</TT>).
+<br>
+
+**Task:** See if you can undertake
+
+* Simple addition, multiplication and division
+* Undertake logarithm
+* Save a sequence of numbers and then undertake a function on that sequence (e.g. multiply)
+
+``` {r,eval=TRUE, tidy=FALSE }
+  
+#Some example script
+3+4 #simple addition
+3*26 #multiplication
+log(2) #logarithm
+
+#note that I can make comments after a '#' that are ignored when I run lines of code
+
+```
+<br>
+
+We can store items for later use. We can even put these together for a table. 
+
+<br>
+
+
+``` {r,eval=TRUE,  tidy=FALSE}
+a<-seq(3) # asks for a sequence of 3 numbers and stores it as the object 'a'
+a #calls the stored object 'a'
+3*a # multiply all elements of 'a' by 3
+mon<- c("JAN","FEB","MAR")
+CAL<-data.frame(mon,a)
+CAL #show 'CAL' data frame in R console.
+```
+
+
+# Setting the working directory and importing a csv file  
+
+A reminder that when you start to use <TT>R</TT>, you will often need to import data to analyse. For this session, we are going to use some pharmacokinetic data that can be downloaded from Canvas - 'amoxicillin.csv'. 
+  
+When working on a project in <TT>R</TT>, it is standard practice to navigate to the folder that your data is in using the  <TT>setwd()</TT> function. This tells <TT>R</TT> the directory you want to work in. Everything you save in your <TT>R</TT> session will by default be saved in the working directory (although this default can be overridden). If you want to import a csv file, we will use the function <TT>read.csv()</TT>. 
+
+Before undertaking the next section, I strongly recommend that you make a folder on your personal (H:) drive to contain all your work for this module. I recommend _against_ using spaces in the name (this sometimes causes problems). You might make a folder called 'intro_pk'. Inside that folder you might have a folder for each bit of work you do. Please note that you _cannot_ use your Onedrive when using RStudio on the University server (annoying I know). 
+
+You can <TT>setwd()</TT>  using your mouse and clicking on 'session' and 'set working directory'. Alternatively (and more rapidly), you can use <TT>R</TT> code and the <TT>setwd()</TT> function.
+
+<br>
+
+``` {r,eval=FALSE, results='hold', tidy=FALSE}
+  
+setwd()
+setwd("INSERT YOUR FILE PATH HERE")
+# or if on the server setwd("~/intro_pk/intro_R/")
+```
+
+<br>
+
+If you ever want to check the current working directory you can use the function <TT>getwd()</TT> and you can check the contents of your working directory using <TT>list.files()</TT>
+
+<br>
+
+``` {r, eval=TRUE,results='hold'}
+list.files()
+# remember your output will depend on what you have in your folder
+```
+
+<br>
+
+## Packages you need for this session
+
+Link your path using the following line of code and then call <TT>library(tidyverse)</TT>.
+
+```{r, eval=FALSE}
+.libPaths( c( .libPaths(),
+              "/homes/dlonsdale-pharmacokinetics/sghms/bms/shares/Advanced-Pharmacokinetics/4.3.2/library") )
+#note that you need the '.' before 'libPaths'
+library(tidyverse)
+```
+
+# Accessing data for this session
+
+For this revision session lets reuse the PK data for an anti-epileptic. 6 participants were given an IV dose and then one week later they were given an oral dose. Drug concentrations were measured.
+
+You can download the data for this session directly from GitHub. There are two files. Copy and paste my code.
+
+```{r, eval=TRUE}
+
+IV<-read.csv("https://raw.githubusercontent.com/dlonsdal/non_compartmental/main/docs/PK_IV.csv")
+
+
+ORAL<-read.csv("https://raw.githubusercontent.com/dlonsdal/non_compartmental/main/docs/PK_oral.csv")
+
+```
+
+# Tasks
+
+* Plot the data for the IV and oral data.
+* Estimate $C_{max}$ for the IV and oral data
+* Estimate the mean $C_{max}$ for the IV and oral data
+* Estimate $T_{max}$ for the IV and oral data
+* Estimate the area under the curve ($AUC_{0-t}$)
+
+
+**Extended tasks:** 
+
+* Use a ggplot 'theme' to make your plot look more attractive 
+* Can you make each line (ID) a different type? 
+* Log transform the y-axis
+* Plot data for *just* <TT>ID==A</TT>
+* Plot each individual
+* Plot oral and IV data on one plot
+ 
