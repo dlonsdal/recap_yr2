@@ -1,5 +1,6 @@
+
 ---
-title: "Recap of quantitative pharmacology skills developed in '<TT>R</TT> in year 1'"
+title: "Recap of quantitative pharmacology skills developed in '<TT>R</TT>' in year 1: Solutions"
 output:
   bookdown::html_document2:
     fig_caption : TRUE
@@ -41,7 +42,6 @@ library(tidyverse)
 library(kableExtra)
 ```
 
-
 # Introduction 
 
 In this session you will run through some of the quantitative skills that we learned in year 1. This is in preparation for an in-person session next week, where we will push things a little further. 
@@ -50,7 +50,7 @@ One of the important ways of learning how to code is by actually doing it yourse
 
 Remember, drug development professionals across the world use these skills and software. It is worth investing some of your time in developing some knowledge of them yourself. 
 
-Last year, we did not assess this component of the course. This year, you will be invited to complete some analysis as part of an in-course assignment. Code questions may be included in the Hub single best answer quizzes.
+Last year, we did not assess this component of the course. This year, you will be invited to complete some analysis as part of an in-course assignment. 
 
 # Learning outcomes  
 
@@ -75,21 +75,64 @@ By the end of this session you should be able to:
     + $AUC_{0-t}$
     + Bioavailability ($F$)
   
-# Accessing <TT>R</TT> and <TT>RStudio</TT> on a University computer 
+## Accessing <TT>RStudio</TT> on a University computer
 
-Remember, when you are using a University computer, you need to access <TT>RStudio</TT> via the University servers.
+Following the cyber incident, there is a slight change to how you can access <TT>RStudio</TT> and <TT>R</TT>. 
 
-The link for this is [here](https://stats4.sgul.ac.uk/rstudio).  I suggest you save this as a 'favourite'
+If you are *onsite*, you can use <https://shms-stats4.city.ac.uk/>. You will then need to login with your 'city.ac.uk' email address and password. 
+
+If you are trying to access *offsite*, you cannot directly go to this web address. First you need to login to the virtual desktop. There are some instructions on how to do this [here](https://studenthub.citystgeorges.ac.uk/student-support-services/it-services/city-virtual-desktop#accordion858419-how-do-i-access-cvd?). 
+
+A video with me showing you this (captioned) is below.
+
+<video width="100%" controls>
+  <source src="Accessing R_default.mp4" type="video/mp4">
+  <track src="captions.vtt" kind="captions" srclang="en" label="English" default>
+</video>
+
+
+## Opening up a code file and starting the session
+
+Click on the little plus icon at the top left of the screen and click 'R script'. This will open a new blank script for you to work in. I would advise you to then 'save' this script. Remember to save the file with a '.r' extension. For example. 'year2code.r'.
+
+This will allow you to find it again in future. For those who like to organise their folders, you might choose to create a folder called 'year2' and put the r script in there. 
+
+
+## Packages for this session
+
+You _will_ need to run the following code in order to utilise the correct packages for this session.
+
+```{r, echo=TRUE, eval=FALSE}
+
+install.packages('tidyverse'); install.packages('DescTools')
+library(tidyverse); library(DescTools)
+
+```
+
 
 # Some basics in <TT>R</TT>
+
 Open <TT>RStudio</TT> and then open a new <TT>R</TT> script by clicking on the plus page in the top left hand corner of the <TT>RStudio</TT> window. You are now ready to start writing an <TT>R</TT> script. Try doing some simple maths and running the code by clicking '<TT>Run</TT>' or pressing <TT>ctrl+enter</TT> (<TT>cmd+enter if using a Mac</TT>).
 <br>
 
-**Task:** See if you can undertake
+## Practice: Basic Maths {.tabset .tabset-pills}
+
+### Tasks {-}
+
+See if you can undertake:
 
 * Simple addition, multiplication and division
 * Undertake logarithm
 * Save a sequence of numbers and then undertake a function on that sequence (e.g. multiply)
+
+### Solutions {-}
+
+See if you can undertake:
+
+* Simple addition, multiplication and division
+* Undertake logarithm
+* Save a sequence of numbers and then undertake a function on that sequence (e.g. multiply)
+
 
 ``` {r,eval=TRUE, tidy=FALSE }
   
@@ -102,9 +145,6 @@ log(2) #logarithm
 
 ```
 <br>
-
-We can store items for later use. We can even put these together for a table. 
-
 <br>
 
 
@@ -118,49 +158,6 @@ CAL #show 'CAL' data frame in R console.
 ```
 
 
-# Setting the working directory and importing a csv file  
-
-A reminder that when you start to use <TT>R</TT>, you will often need to import data to analyse. 
-  
-When working on a project in <TT>R</TT>, it is standard practice to navigate to the folder that your data is in using the  <TT>setwd()</TT> function. This tells <TT>R</TT> the directory you want to work in. Everything you save in your <TT>R</TT> session will by default be saved in the working directory (although this default can be overridden). If you want to import a csv file, we will use the function <TT>read.csv()</TT>. 
-
-Before undertaking the next section, I strongly recommend that you make a folder on your personal (H:) drive to contain all your work for this module. I recommend _against_ using spaces in the name (this sometimes causes problems). You might make a folder called 'intro_pk'. Inside that folder you might have a folder for each bit of work you do. Please note that you _cannot_ use your Onedrive when using RStudio on the University server (annoying I know). 
-
-You can <TT>setwd()</TT>  using your mouse and clicking on 'session' and 'set working directory'. Alternatively (and more rapidly), you can use <TT>R</TT> code and the <TT>setwd()</TT> function.
-
-<br>
-
-``` {r,eval=FALSE, results='hold', tidy=FALSE}
-  
-setwd()
-setwd("INSERT YOUR FILE PATH HERE")
-# or if on the server setwd("~/intro_pk/intro_R/")
-```
-
-<br>
-
-If you ever want to check the current working directory you can use the function <TT>getwd()</TT> and you can check the contents of your working directory using <TT>list.files()</TT>
-
-<br>
-
-``` {r, eval=TRUE,results='hold'}
-list.files()
-# remember your output will depend on what you have in your folder
-```
-
-<br>
-
-## Packages you need for this session
-
-Link your path using the following line of code and then call <TT>library(tidyverse)</TT>.
-
-```{r, eval=FALSE}
-.libPaths( c( .libPaths(),
-              "/homes/dlonsdale-pharmacokinetics/sghms/bms/shares/Advanced-Pharmacokinetics/4.4.2/library") )
-#note that you need the '.' before 'libPaths'
-library(tidyverse)
-```
-
 # Accessing data for this session
 
 For this revision session lets reuse the PK data for an anti-epileptic. 6 participants were given an IV dose and then one week later they were given an oral dose. Drug concentrations were measured.
@@ -168,22 +165,145 @@ For this revision session lets reuse the PK data for an anti-epileptic. 6 partic
 You can download the data for this session directly from GitHub. There are two files. Copy and paste my code.
 
 ```{r, eval=TRUE}
+library(tidyverse)
+IV <-  read.csv("https://raw.githubusercontent.com/dlonsdal/non_compartmental/main/docs/PK_IV.csv")
 
-IV<-read.csv("https://raw.githubusercontent.com/dlonsdal/non_compartmental/main/docs/PK_IV.csv")
-
-
-ORAL<-read.csv("https://raw.githubusercontent.com/dlonsdal/non_compartmental/main/docs/PK_oral.csv")
-
+ORAL <- read.csv("https://raw.githubusercontent.com/dlonsdal/non_compartmental/main/docs/PK_oral.csv")
 ```
 
-# Tasks
+# Initial Analysis {.tabset .tabset-pills}
+
+## Tasks {-}
 
 * Plot the data for the IV and oral data.
 * Estimate $C_{max}$ for the IV and oral data
 * Estimate the mean $C_{max}$ for the IV and oral data
 * Estimate $T_{max}$ for the IV and oral data
-* Estimate the area under the curve ($AUC_{0-t}$)
 
+## Solutions {-}
+
+* Plot the data for the IV and oral data.
+* Estimate $C_{max}$ for the IV and oral data
+* Estimate the mean $C_{max}$ for the IV and oral data
+* Estimate $T_{max}$ for the IV and oral data
+
+```{r plot, eval=TRUE,echo=TRUE,  message=FALSE, warning=FALSE}
+
+ggplot(data=IV,aes(x=time, y=conc,col=id) )+
+  geom_line()+
+  geom_point()+
+  theme_classic()+
+  xlab("time (hours)")+
+  ylab("concentration of IV drug (mg/L)")
+
+```
+
+```{r cmax_solution, eval=TRUE,echo=TRUE, message=FALSE, warning=FALSE}
+IV%>%
+  group_by(id)%>%
+  summarise(cmax=max(conc))
+# here we tell R to take 'IV', group by 'id' then give the max conc
+
+ORAL %>% 
+  group_by(id) %>% 
+  summarise(cmax=max(conc))
+
+IV%>%
+  group_by(id)%>%
+  summarise(cmax=max(conc)) %>% 
+  ungroup() %>% 
+  summarise(mean(cmax))
+# here we tell R to take 'IV', group by 'id' then give the max conc
+
+ORAL %>% 
+  group_by(id) %>% 
+  summarise(cmax=max(conc)) %>% 
+  ungroup() %>% 
+  summarise(mean(cmax))
+
+FULL<-rbind(IV,ORAL) # this makes a new dataset with all data in it. 
+FULL %>% 
+  group_by(id,study) %>% 
+  summarise(max(conc))
+
+FULL %>% 
+  group_by(id,study) %>% 
+  summarise(cmax=max(conc),.groups="drop") %>% 
+  group_by(study)  %>% 
+  summarise(mean(cmax))
+
+```
+
+```{r tmax_solution,  eval=TRUE,echo=TRUE,  message=FALSE, warning=FALSE}
+
+ORAL %>% 
+  group_by(id) %>% 
+  summarise(cmax=max(conc),
+            tmax=time[which.max(conc)])
+
+FULL %>% 
+  group_by(id,study) %>% 
+  summarise(cmax=max(conc),
+            tmax=time[which.max(conc)],.groups="drop") %>% 
+  group_by(study)  %>% 
+  summarise(mean(cmax),
+            mean(tmax))  
+```
+
+# Estimating the area under the curve ($AUC_{0-t}$)
+
+$AUC_{0-t}$ is the area under the time concentration curve from $time=0$ to $time=t$ ($t$ will usually be the time of the last observed sample but it doesnt have to be). In non-compartmental analysis, this is often estimated using a method that breaks up the time concentration data into small chunks, estimates the area under each chunk and adds them together. The most straightforward way of doing this is using the trapezoid method. 
+
+```{r trap, echo=F, fig.cap="Participant 'A' oral concentration-time profile, with trapezoids indicated in colour", fig.width=7,fig.height=2.5,fig.align = 'center', warning=F,message=F}
+
+soral<-subset(ORAL,id=='A')
+a<-ggplot(data=soral, aes(time,conc))+
+  geom_point()+
+  xlab("Time (hours)") + ylab("Drug concentration (mg/L)")+
+  geom_line() +
+  theme_bw(base_size=9)
+
+b<-ggplot(data=soral, aes(time,conc))+ 
+
+    geom_ribbon(data=subset(soral,  time >2 & time < 7), 
+          aes(ymin=0,ymax=conc),
+              fill='#82B446',
+              alpha=0.2, outline.type = 'full',colour='gray44')+ 
+
+  geom_point()+
+  xlab("Time (hours)") + ylab("Drug concentration (mg/L)")+
+  geom_line() +
+  theme_bw(base_size=9) +
+  geom_text(x=4, y=0, label="A", hjust= -0.25, vjust = 1, size=3)+
+  geom_text(x=4, y=soral$conc[9], label="B",hjust= -0.5,  size=3)+
+  geom_text(x=6, y=soral$conc[10], label="C", hjust= -0.5,vjust=-0.25, size=3)+
+  geom_text(x=6, y=0, label="D", hjust= -0.25, vjust = 1, size=3)
+
+library(gridExtra)
+grid.arrange(a,b,ncol=2)
+```
+
+To calculate the area under the curve of the trapezoid ABCD in Figure \@ref(fig:trap) we use the equation for the area of a trapezoid. $$Area = \frac{1}{2}*(height_{1,AB}+height_{2,CD})*base_{AD}$$
+The two heights correspond to concentrations B and C and the base is the distance A to D (the change in time $\Delta t$) in Figure \@ref(fig:trap). So more fully for this example, where *height* is replaced with *concentration* $(C)$: $$AUC_{0-8} = \sum_{t=0}^{t=8} \Delta t\frac{(C_1+C_2)}{2}$$ 
+
+Fortunately,<TT>R</TT> has an inbuilt function that allows us to calculate the $AUC$. The handily named <TT>AUC()</TT> function. You need to provide it with three commands, <TT>x=...,y=...</TT> and <TT>method="trapezoid"</TT>. It is in the <TT>DescTools</TT> library.
+
+I will show you how to calculate using the oral data. 
+
+```{r AUC,   message=FALSE, warning=FALSE}
+library(DescTools)
+ORAL%>% 
+  group_by(id) %>% 
+  summarise(AUC=AUC(time,conc,method='trapezoid'))
+
+```
+
+
+## Practice: AUC & Extended Tasks {.tabset .tabset-pills}
+
+### Tasks {-}
+
+Now let's look at IV and oral together to calculate the combined AUC. 
 
 **Extended tasks:** 
 
@@ -194,3 +314,39 @@ ORAL<-read.csv("https://raw.githubusercontent.com/dlonsdal/non_compartmental/mai
 * Plot each individual
 * Plot oral and IV data on one plot
  
+### Solutions {-}
+
+* Use a ggplot 'theme' to make your plot look more attractive 
+* Can you make each line (ID) a different type? 
+* Log transform the y-axis
+* Plot data for *just* <TT>ID==A</TT>
+* Plot each individual
+* Plot oral and IV data on one plot
+
+```{r AUC_solutions,  eval=TRUE, echo=TRUE, message=FALSE, warning=FALSE}
+IV%>% 
+  group_by(id) %>% 
+  summarise(AUC=AUC(time,conc,method='trapezoid'))
+
+FULL %>% 
+  group_by(id,study) %>% 
+  summarise(AUC=AUC(time,conc,method='trapezoid')) %>% 
+  group_by(study)  %>% 
+  summarise(mAUC=
+              mean(AUC)) 
+
+FULL %>% 
+  group_by(id,study) %>% 
+  summarise(AUC=AUC(time,conc,method='trapezoid')) %>% 
+  group_by(study)  %>% 
+  summarise(mAUC=
+              mean(AUC)) %>% 
+  summarise(F=mAUC[study=="ORAL"]/mAUC[study=="IV"])
+
+```
+
+*Note: There are no solutions provided for the extended tasks, but feel free to post your suggestions on a discussion board.*
+
+If you have questions about solving these tasks, ask tutors in the in-person session or email dlonsdal@sgul.ac.uk
+
+```

@@ -1,0 +1,109 @@
+1
+00:00:00,920 --> 00:00:12,080
+[Auto-generated transcript. Edits may have been applied for clarity.]
+All right, folks, I'm just going to quickly show you how to access the, um, RStudio and R programs that will use for quantitative pharmacokinetics.
+
+2
+00:00:14,040 --> 00:00:21,480
+Um, this year, there's a slight difference in how we approach things following the, uh, cyber incident.
+
+3
+00:00:22,960 --> 00:00:32,200
+Um, so first things first, if you are logged in on site, uh, on a university computer, um,
+
+4
+00:00:32,680 --> 00:00:39,000
+you can go straight to, um, the stats for server, which is the second step that I'll do.
+
+5
+00:00:39,160 --> 00:00:45,440
+But if you're at home, you need to do this first. You need to log in via the City University Virtual desktop,
+
+6
+00:00:45,920 --> 00:00:52,480
+and you can find the URL for that just by googling City University virtual desktop come down.
+
+7
+00:00:52,880 --> 00:00:58,480
+How do I access it? Well, you can do two things. You can access a client, or you can just do it through a through a browser.
+
+8
+00:00:59,360 --> 00:01:03,440
+Click on there. It'll ask you how you want sign in.
+
+9
+00:01:03,640 --> 00:01:07,700
+You importantly have to sign in with your at city account.
+
+10
+00:01:10,980 --> 00:01:16,820
+And then when you do that, it'll usually ask you for your password. I've already signed in once today.
+
+11
+00:01:17,700 --> 00:01:21,020
+Um. And there we go. It's asking me anyway. Uh, it's my password.
+
+12
+00:01:21,660 --> 00:01:30,900
+It'll ask for access to your camera, etc.. It will take a little bit of time to, um, to log in.
+
+13
+00:01:59,700 --> 00:02:23,610
+Any minute now. Okay, there we go.
+
+14
+00:02:24,330 --> 00:02:38,450
+And then if you just open up a web browser from within that desktop, the, um, URL that you need is, uh, the stats for URL, and that is.
+
+15
+00:02:45,130 --> 00:02:50,650
+Uh, http s s stats for UK.
+
+16
+00:02:52,890 --> 00:02:56,370
+And then here you log in again with your activity account.
+
+17
+00:02:57,970 --> 00:03:02,370
+And then once you signed in it'll ask I've already got a session running.
+
+18
+00:03:03,130 --> 00:03:11,050
+But you basically you're asked to open a new session one R Studio Pro uh launch that.
+
+19
+00:03:15,950 --> 00:03:23,390
+And then you're faced with the user interface and you can open up a new script if you like.
+
+20
+00:03:25,270 --> 00:03:30,950
+Uh, previously, I have asked you to link to my library where I've stored all the packages.
+
+21
+00:03:31,950 --> 00:03:36,470
+Now, you've actually been given with quite a lot of memory. You can install packages yourself.
+
+22
+00:03:37,430 --> 00:03:45,710
+The two key things to install when you start doing, um, some work with me is tidy verse.
+
+23
+00:03:46,470 --> 00:03:52,710
+And then some of you might need some additional packages as you go through, and you'll see those in the notes you run.
+
+24
+00:03:52,950 --> 00:03:58,710
+Install dot packages tidy verse. You run that and you will see install down here on the terminal.
+
+25
+00:03:59,150 --> 00:04:08,150
+You can see it flashing through. And then once you have um installed it, you need to remember to call Tidy Verse from your library.
+
+26
+00:04:09,350 --> 00:04:17,590
+Simple as that. And the rest of the instructions, um, on how to do things are all on the web page.
+
+27
+00:04:18,270 --> 00:04:18,270
+Great.
+
